@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElemarJR.FunctionalCSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,14 @@ namespace StockManager.AdministrationContext.Domain
             _repository = repository;
         }
 
-        public Product Create(string name, string description)
+        public Try<Exception, Product> Create(string name, string description)
         {
             var product = _repository.GetByName(name);
 
             if (product != null)
-                throw new Exception("Product should be unique");
+                return new Exception("Product should be unique");
 
-            return new Product(name, description);
+            return Try.Run(() => new Product(name, description));
         }
     }
 }

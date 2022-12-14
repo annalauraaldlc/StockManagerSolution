@@ -8,6 +8,8 @@ namespace StockManager.AdministrationContext.Domain
 {
     public interface IProductRepository
     {
+        Product GetById(Guid id);
         Product GetByName(string name);
+        int InventoryStatus(Guid id);
     }
 }

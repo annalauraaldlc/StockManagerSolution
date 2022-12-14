@@ -2,7 +2,7 @@
 
 namespace StockManager.AdministrationContext.Domain
 {
-    public class Product
+    public class Product : IAggregateRoot
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
@@ -12,12 +12,17 @@ namespace StockManager.AdministrationContext.Domain
         public Product(string name, string description)
         {
             if (string.IsNullOrEmpty(name))
-                throw new Exception("Name do not be null");
+                throw new Exception("Name not be null");
 
             Name = name;
             Description = description;
             Id = Guid.NewGuid();
             IsRemoved = false;
+        }
+        
+        public void SetAsRemoved()
+        {
+            IsRemoved = true;
         }
     }
 }

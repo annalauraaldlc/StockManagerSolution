@@ -44,9 +44,7 @@ namespace StockManager.AdministrationContext.UnitTests.Features
             var factory = new ProductFactory(repositoryFake.Object);
             var newProduct = factory.Create("any name", "any description");
 
-            Assert.IsNotNull(newProduct);
-            Assert.That(newProduct.Name, Is.EqualTo("any name"));
-            Assert.That(newProduct.Description, Is.EqualTo("any description"));
+            Assert.IsTrue(newProduct.IsSucess);
         }
     }
 }
