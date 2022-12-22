@@ -1,4 +1,5 @@
 ﻿using ElemarJR.FunctionalCSharp;
+using StockManager.AdministrationContext.Domain.ProductAggregate;
 using System;
 
 namespace StockManager.AdministrationContext.Domain
@@ -19,15 +20,15 @@ namespace StockManager.AdministrationContext.Domain
             if (product is null)
                 return new Exception("Product not found");
 
-            if (product.IsRemoved)
-                return new Exception("Product is alredy removed.");
-
             var inventoryStatus = _productRepository.InventoryStatus(id);
 
             if (inventoryStatus > 0) 
                 return new Exception("Product has itens in inventory.");
 
-            product.SetAsRemoved();
+            var result = _productRepository.Remove(product);
+
+            if (result.IsFailure)
+                return new Exception("An error occurred, product is not removed.");
 
             return product;
         }

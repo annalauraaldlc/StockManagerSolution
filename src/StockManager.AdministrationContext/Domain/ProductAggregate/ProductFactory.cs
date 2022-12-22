@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockManager.AdministrationContext.Domain
+namespace StockManager.AdministrationContext.Domain.ProductAggregate
 {
     public class ProductFactory
     {

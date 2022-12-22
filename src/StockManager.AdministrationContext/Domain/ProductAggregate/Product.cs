@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StockManager.AdministrationContext.Domain
+namespace StockManager.AdministrationContext.Domain.ProductAggregate
 {
     public class Product : IAggregateRoot
     {
@@ -19,10 +19,18 @@ namespace StockManager.AdministrationContext.Domain
             Id = Guid.NewGuid();
             IsRemoved = false;
         }
-        
-        public void SetAsRemoved()
+
+        public void Update(string name = null, string description = null)
         {
-            IsRemoved = true;
+            if (name is not null)
+            {
+                Name = name;
+            }
+
+            if (description is not null)
+            {
+                Description = description;
+            }
         }
     }
 }
