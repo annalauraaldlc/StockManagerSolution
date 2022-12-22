@@ -2,15 +2,13 @@ using ElemarJR.FunctionalCSharp;
 using Moq;
 using NUnit.Framework;
 using StockManager.AdministrationContext.Domain;
-using System;
-using TechTalk.SpecFlow;
+using StockManager.AdministrationContext.Domain.ProductAggregate;
 
 namespace StockManager.AdministrationContext.SpecUnitTests.StepDefinitions
 {
     [Binding]
     public class RemoverProdutoStepDefinitions
     {
-        Product _produto;
         private Mock<IProductRepository> _repositoryFake;
         private ProductRemoveDomainService _productRemoveDomainService;
         private Try<Exception, Product> _removeResult;
@@ -41,10 +39,7 @@ namespace StockManager.AdministrationContext.SpecUnitTests.StepDefinitions
             if (_repositoryFake == null)
                 _repositoryFake = new Mock<IProductRepository>();
 
-            var product = new Product("any name", "any description");
-            product.SetAsRemoved();
-
-            _repositoryFake.Setup(y => y.GetById(It.IsAny<Guid>())).Returns(product);
+            _repositoryFake.Setup(y => y.GetById(It.IsAny<Guid>())).Returns(default(Product));
         }
 
         [When(@"remover o produto")]
@@ -57,16 +52,12 @@ namespace StockManager.AdministrationContext.SpecUnitTests.StepDefinitions
         [Then(@"remover com sucesso")]
         public void ThenRemoverComSucesso()
         {
-            bool isRemoved = false;
-
             Option<Product> a = _removeResult.OptionalSuccess;
 
             a.Match(
-                some: (Product value) => isRemoved = value.IsRemoved,
-                none: () => new Unit()
+                some: (Product value) => Assert.Pass(),
+                none: () => Assert.Fail()
                 );
-
-            Assert.IsTrue(isRemoved);
         }
 
 

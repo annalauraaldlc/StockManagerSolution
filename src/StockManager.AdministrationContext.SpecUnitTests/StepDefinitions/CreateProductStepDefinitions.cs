@@ -2,6 +2,7 @@ using ElemarJR.FunctionalCSharp;
 using Moq;
 using NUnit.Framework;
 using StockManager.AdministrationContext.Domain;
+using StockManager.AdministrationContext.Domain.ProductAggregate;
 
 namespace StockManager.AdministrationContext.SpecUnitTests.StepDefinitions
 {
