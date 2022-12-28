@@ -1,5 +1,7 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using StockManager.Gateway.Infra;
+using StockManager.Gateway.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOcelot();
 
+builder.Services.AddScoped<ITenantRepository, TenantRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<TenantResolverMiddleware>();
 
 app.UseHttpsRedirection();
 

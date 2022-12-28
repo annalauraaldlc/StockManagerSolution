@@ -5,7 +5,7 @@ namespace StockManager.AdministrationContext.Infra.Data.Entities
 {
     public class ProductProfile : Profile
     {
-        public ProductProfile(string profileName) : base(profileName)
+        public ProductProfile() : base()
         {
             CreateMap<ProductTable, Product>();
         }
